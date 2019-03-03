@@ -1,0 +1,25 @@
+#!/bin/bash
+
+#
+# Common configuration data for all scripts
+#
+# Author: Björn Hendriks, 2019
+#
+# This script is to be sourced by all other scripts to share a common configuration.
+#
+
+# Docker image to base this image on
+baseImage=ubuntu
+# Tag name for this Docker image
+tagName=firefox
+
+# Name of browser user in the container
+userName=user
+# ID of browser user in the container
+userId=1000
+# Group of browser user in the container
+userGroup=user
+# Group ID of browser user in the container
+userGid=1000
+
+

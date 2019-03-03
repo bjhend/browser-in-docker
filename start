@@ -1,0 +1,40 @@
+#!/bin/bash
+
+#
+# Start container with Firefox Docker image
+#
+# Author: Björn Hendriks, 2019
+#
+
+# The default shared mem size of 64m is not sufficient for vidoes
+# The shared mem size could also be passed to the docker build call and maybe
+# set in the Dockerfile.
+shmSize=1g
+
+. $(dirname $0)/config
+
+# Make Docker run option for download folder
+hostDownloadFolder=$1
+if [ -d $hostDownloadFolder ]
+then
+	downloadFolderOption="-v $hostDownloadFolder:/home/$userName/Downloads"
+else
+	downloadFolderOption=""
+fi
+
+# Local user ID
+hostUserId=$(id -u)
+
+
+# Run Docker container such that it shares display and sound server with the host
+#
+# --rm               remove container when last process (browser window) terminates
+# -e DISPLAY         pass DISPLAY environment variable for graphical output
+# -e PULSE_SERVER    pass path to host user's sound socket
+# -v /tmp/.X11-unix  map host's display sockets into container
+# --shm-size         set shared memory szie (see above)
+# -v /run/user/$hostUserId/pulse  map host user's sound socket into container
+# $downloadFolderOption  see above
+# $tagName           see config file
+docker run --rm -e DISPLAY -e PULSE_SERVER=unix:/run/user/$hostUserId/pulse/native -v /tmp/.X11-unix:/tmp/.X11-unix --shm-size $shmSize -v /run/user/$hostUserId/pulse:/run/user/$userId/pulse $downloadFolderOption $tagName
+

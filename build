@@ -1,0 +1,15 @@
+#!/bin/bash
+
+#
+# Create the Docker image
+#
+# Author: Björn Hendriks, 2019
+#
+
+
+# Source config
+workDir=$(dirname $0)
+. $workDir/config
+
+# Pass config to Dockerfile and create the image
+docker build --build-arg baseImage=$baseImage --build-arg userName=$userName --build-arg uid=$userId --build-arg groupName=$userGroup --build-arg gid=$userGid -t $tagName $workDir
