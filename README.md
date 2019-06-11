@@ -25,6 +25,7 @@ The container setup and the start script allow to play sound and video.
 ## How to use it
 
 * Install Docker on your system
+* Install `xhost` if not already present
 * Run `build` to create the Docker image
 * Run `start` to run container based on the image, opening a browser window
 	* Pass a host folder as argument to `start` to use that as download folder.
@@ -44,7 +45,7 @@ Contains common configuration settings for the scripts.
 
 ### `build`
 
-Build the Docker image passing the configuration settings from `config` as arguments to the Dockerfile.
+Build the Docker image passing the configuration settings from `config` as arguments to the Dockerfile. Calls `xhost` to enable X server connections for containers started by current user.
 
 
 ### `update`

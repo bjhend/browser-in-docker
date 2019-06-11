@@ -11,5 +11,8 @@
 workDir=$(dirname $0)
 . $workDir/config
 
+# Enable Docker container to connect to X server
+sudo xhost SI:localuser:$USER
+
 # Pass config to Dockerfile and create the image
 docker build --build-arg baseImage=$baseImage --build-arg userName=$userName --build-arg uid=$userId --build-arg groupName=$userGroup --build-arg gid=$userGid -t $tagName $workDir
