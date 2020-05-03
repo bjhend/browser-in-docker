@@ -13,6 +13,9 @@ ARG uid
 ARG groupName
 ARG gid
 
+# Avoid blocking the update by interaction (at least tzdata blocks it entirely)
+ENV DEBIAN_FRONTEND=noninteractive
+
 # Install Firefox and supplementary tools
 RUN apt-get update && \
 	apt-get install -y \
@@ -20,7 +23,6 @@ RUN apt-get update && \
 		pulseaudio-utils \
 		vlc \
 		vlc-data \
-		browser-plugin-vlc \
 	&& \
 	apt-get clean
 
