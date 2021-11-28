@@ -5,6 +5,12 @@
 #
 # Author: Björn Hendriks, 2019
 #
+# Params
+# 	1: (optional) shared folder mounted into container's download folder
+# 	2: (optional) Name for the container. If given the container will be
+# 	   persistent. You have to take care to remove it or may later restart
+# 	   it.
+#
 
 # The default shared mem size of 64m is not sufficient for vidoes
 # The shared mem size could also be passed to the docker build call and maybe
@@ -22,9 +28,21 @@ else
 	downloadFolderOption=""
 fi
 
+# Make container persistent with given name
+name=$2
+if [ -z $name ]
+then
+	rmOpt="--rm"
+	nameOpt=""
+else
+	rmOpt=""
+	nameOpt="--name $name"
+fi
+
 # Local user ID
 hostUserId=$(id -u)
 
+pulseDir=/run/user/$hostUserId/pulse
 
 # Run Docker container such that it shares display and sound server with the host
 #
@@ -36,5 +54,5 @@ hostUserId=$(id -u)
 # -v /run/user/$hostUserId/pulse  map host user's sound socket into container
 # $downloadFolderOption  see above
 # $tagName           see config file
-docker run --rm -e DISPLAY -e PULSE_SERVER=unix:/run/user/$hostUserId/pulse/native -v /tmp/.X11-unix:/tmp/.X11-unix --shm-size $shmSize -v /run/user/$hostUserId/pulse:/run/user/$userId/pulse $downloadFolderOption $tagName
+docker run $rmOpt $nameOpt -e DISPLAY -e PULSE_SERVER=unix:$pulseDir/native -v /tmp/.X11-unix:/tmp/.X11-unix --shm-size $shmSize -v $pulseDir:/run/user/$userId/pulse $downloadFolderOption $tagName
 

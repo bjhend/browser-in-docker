@@ -29,6 +29,9 @@ The container setup and the start script allow to play sound and video.
 * Run `build` to create the Docker image
 * Run `start` to run container based on the image, opening a browser window
 	* Pass a host folder as argument to `start` to use that as download folder.
+	* Pass a second argument as name for the container. If given the container
+	  will be persistent, so you have to remove it manually or may restart it
+	  later.
 	* When a video won't play, try to set _Play DRM-controlled content_ in preferences/General
 * Sometimes update the image by running `update`
 
@@ -59,7 +62,9 @@ Run a container with the built Docker image. The script sets all options to pass
 
 When a host folder is passed as argument, that folder will be mounted as download folder for the browser.
 
-The container is started with option `--rm` so the container becomes removed once the browser (and all windows opened by it) is closed.
+When a second argument is passed it will be used as Docker name for the container.
+
+Unless a name (second argument is given) the container is started with option `--rm` so the container becomes removed once the browser (and all windows opened by it) is closed. If the second argument is given you have to remove the container yourself or you may restart it later with `docker restart <name>`.
 
 
 ## Todos
