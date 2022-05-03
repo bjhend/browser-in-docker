@@ -9,7 +9,7 @@
 #
 
 # Docker image to base this image on
-baseImage=ubuntu
+baseImage=debian
 # Tag name for this Docker image
 tagName=firefox
 
