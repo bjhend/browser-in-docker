@@ -19,6 +19,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Install Firefox and supplementary tools
 RUN apt-get update && \
 	apt-get install -y \
+		libpci3 \
 		firefox-esr \
 		pulseaudio-utils \
 		vlc \
