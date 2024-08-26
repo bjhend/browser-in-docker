@@ -21,7 +21,7 @@ shmSize=1g
 
 # Make Docker run option for download folder
 hostDownloadFolder=$1
-if [ -d $hostDownloadFolder ]
+if [[ -d $hostDownloadFolder ]]
 then
 	downloadFolderOption="-v $hostDownloadFolder:/home/$userName/Downloads"
 else
