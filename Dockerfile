@@ -4,7 +4,8 @@
 # Author: Björn Hendriks, 2019
 #
 
-ARG baseImage
+# ARG used in FROM requires a default
+ARG baseImage=debian
 FROM ${baseImage}
 
 # ARG variables must be defined after FROM except for args used for FROM
@@ -36,4 +37,4 @@ USER ${userName}
 COPY pulse-client.conf /etc/pulse/client.conf
 
 # Start Firefox
-CMD /usr/bin/firefox
+CMD ["/usr/bin/firefox"]
