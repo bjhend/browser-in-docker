@@ -25,7 +25,6 @@ The container setup and the start script allow to play sound and video.
 ## How to use it
 
 * Install Docker on your system
-* Install `xhost` if not already present
 * Run `build` to create the Docker image
 * Run `start` to run container based on the image, opening a browser window
 	* Pass a host folder as argument to `start` to use that as download folder.
