@@ -47,7 +47,7 @@ Contains common configuration settings for the scripts.
 
 ### `build`
 
-Build the Docker image passing the configuration settings from `config` as arguments to the Dockerfile. Calls `xhost` to enable X server connections for containers started by current user.
+Build the Docker image passing the configuration settings from `config` as arguments to the Dockerfile.
 
 
 ### `update`
