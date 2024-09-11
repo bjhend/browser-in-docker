@@ -44,6 +44,8 @@ hostUserId=$(id -u)
 
 pulseDir=/run/user/$hostUserId/pulse
 
+xCookie=${XAUTHORITY:-.Xauthority}
+
 # Run Docker container such that it shares display and sound server with the host
 #
 # --rm               remove container when last process (browser window) terminates
@@ -54,5 +56,5 @@ pulseDir=/run/user/$hostUserId/pulse
 # -v /run/user/$hostUserId/pulse  map host user's sound socket into container
 # $downloadFolderOption  see above
 # $tagName           see config file
-docker run $rmOpt $nameOpt -e DISPLAY -e PULSE_SERVER=unix:$pulseDir/native -v /tmp/.X11-unix:/tmp/.X11-unix --shm-size $shmSize -v $pulseDir:/run/user/$userId/pulse $downloadFolderOption $tagName
+docker run $rmOpt $nameOpt -e DISPLAY -e PULSE_SERVER=unix:$pulseDir/native -v /tmp/.X11-unix:/tmp/.X11-unix -v $xCookie:/home/$userName/.Xauthority --shm-size $shmSize -v $pulseDir:/run/user/$userId/pulse $downloadFolderOption $tagName
 
